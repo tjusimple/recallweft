@@ -3,21 +3,22 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Scoped Recall is an independent, read-only retrieval client for TencentDB Agent Memory.">
-  <title>TencentDB-NEW · Scoped Recall</title>
+  <meta name="description" content="RecallWeft merges two memory sources into one traceable evidence list.">
+  <title>RecallWeft · Traceable Memory Retrieval</title>
+  <link rel="icon" type="image/svg+xml" href="mark.svg">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header class="shell masthead">
-    <a class="wordmark" href="./">Scoped Recall</a>
-    <a href="https://github.com/tjusimple/tencentdb-new">Source on GitHub ↗</a>
+    <a class="wordmark" href="./"><img src="mark.svg" alt="" width="32" height="32"> RecallWeft</a>
+    <a href="https://github.com/tjusimple/recallweft">Source on GitHub ↗</a>
   </header>
   <main class="shell">
     <section class="hero" aria-labelledby="hero-title">
       <div>
-        <p class="kicker">TencentDB-NEW / Independent project</p>
+        <p class="kicker">Read-only memory retrieval</p>
         <h1 id="hero-title">Two sources.<br>One evidence list.</h1>
-        <p class="intro">A read-only retrieval client for TencentDB Agent Memory. Combine atomic memories and conversation history without losing where each result came from.</p>
+        <p class="intro">Combine atomic memories and conversation history without losing where each result came from.</p>
         <a class="button" href="#try">Try it locally</a>
       </div>
       <figure class="trace">
@@ -42,19 +43,19 @@
         <h2 id="try-title">Run it with Python 3.10+</h2>
         <p>The demo uses synthetic records only. No gateway, API key or external service is needed.</p>
       </div>
-      <pre><code>git clone https://github.com/tjusimple/tencentdb-new.git
-cd tencentdb-new
+      <pre><code>git clone https://github.com/tjusimple/recallweft.git
+cd recallweft
 python recall.py --demo</code></pre>
     </section>
     <section class="section provenance" aria-labelledby="source-title">
       <p class="kicker">Provenance</p>
-      <h2 id="source-title">Built on TencentDB Agent Memory</h2>
-      <p>The earlier TencentDB-NEW reproduction used <a href="https://github.com/TencentCloud/TencentDB-Agent-Memory/tree/42c6711c218b40d38d1d6b0ed4767bcc6069cbfd">upstream commit <code>42c6711</code></a> with a separately frozen adaptation. Scoped Recall is a later implementation. It is not the evaluated snapshot and claims no historical leaderboard score.</p>
+      <h2 id="source-title">Compatibility and version notes</h2>
+      <p>RecallWeft is a standalone client, not the earlier evaluated snapshot. See the <a href="https://github.com/tjusimple/recallweft/blob/main/UPSTREAM.md">upstream and version notes</a> for setup and attribution.</p>
     </section>
   </main>
   <footer class="shell footer">
-    <span>Independent project · not a Tencent Cloud release</span>
-    <a href="https://github.com/TencentCloud/TencentDB-Agent-Memory">Upstream repository ↗</a>
+    <span>RecallWeft · Independent project</span>
+    <a href="https://github.com/tjusimple/recallweft">Project repository ↗</a>
   </footer>
 </body>
 </html>
