@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Scoped Recall is an independent, read-only retrieval client for TencentDB Agent Memory.">
+  <title>TencentDB-NEW · Scoped Recall</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="shell masthead">
+    <a class="wordmark" href="./">Scoped Recall</a>
+    <a href="https://github.com/tjusimple/tencentdb-new">Source on GitHub ↗</a>
+  </header>
+  <main class="shell">
+    <section class="hero" aria-labelledby="hero-title">
+      <div>
+        <p class="kicker">TencentDB-NEW / Independent project</p>
+        <h1 id="hero-title">Two sources.<br>One evidence list.</h1>
+        <p class="intro">A read-only retrieval client for TencentDB Agent Memory. Combine atomic memories and conversation history without losing where each result came from.</p>
+        <a class="button" href="#try">Try it locally</a>
+      </div>
+      <figure class="trace">
+        <figcaption class="kicker">Illustrative trace</figcaption>
+        <div class="trace-row"><span>01 / Scope</span><strong>team · user · agent</strong></div>
+        <div class="trace-row"><span>02 / Read in parallel</span><strong>Atomic + Conversation</strong></div>
+        <div class="trace-row"><span>03 / Select</span><strong>Merge → cite → fit budget</strong></div>
+      </figure>
+    </section>
+    <section class="section" aria-labelledby="change-title">
+      <p class="kicker">What’s different</p>
+      <h2 id="change-title">A retrieval layer, not a new memory engine.</h2>
+      <dl class="features">
+        <div><dt>Explicit scope</dt><dd>Both requests use the same team, user and agent identifiers. The client never writes to the upstream store.</dd></div>
+        <div><dt>Traceable evidence</dt><dd>Duplicate text is merged, and the output keeps its best citation from each source.</dd></div>
+        <div><dt>Bounded output</dt><dd>A UTF-8 byte budget limits retrieved text. A source error is reported explicitly, not treated as an empty result.</dd></div>
+      </dl>
+    </section>
+    <section class="section try" id="try" aria-labelledby="try-title">
+      <div>
+        <p class="kicker">Offline demo</p>
+        <h2 id="try-title">Run it with Python 3.10+</h2>
+        <p>The demo uses synthetic records only. No gateway, API key or external service is needed.</p>
+      </div>
+      <pre><code>git clone https://github.com/tjusimple/tencentdb-new.git
+cd tencentdb-new
+python recall.py --demo</code></pre>
+    </section>
+    <section class="section provenance" aria-labelledby="source-title">
+      <p class="kicker">Provenance</p>
+      <h2 id="source-title">Built on TencentDB Agent Memory</h2>
+      <p>The earlier TencentDB-NEW reproduction used <a href="https://github.com/TencentCloud/TencentDB-Agent-Memory/tree/42c6711c218b40d38d1d6b0ed4767bcc6069cbfd">upstream commit <code>42c6711</code></a> with a separately frozen adaptation. Scoped Recall is a later implementation. It is not the evaluated snapshot and claims no historical leaderboard score.</p>
+    </section>
+  </main>
+  <footer class="shell footer">
+    <span>Independent project · not a Tencent Cloud release</span>
+    <a href="https://github.com/TencentCloud/TencentDB-Agent-Memory">Upstream repository ↗</a>
+  </footer>
+</body>
+</html>
