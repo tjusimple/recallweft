@@ -1,0 +1,51 @@
+--- a/MemoryCore/src/core/state/index.ts
++++ b/MemoryCore/src/core/state/index.ts
+@@ -87,6 +87,18 @@
+     return backend;
+   }
+ 
++  // Optional durable standalone state, enabled only for this fixed deployment.
++  if (process.env.TDAI_DURABLE_STATE_DB) {
++    const { DurableStateBackend } = await import("./durable-backend.js");
++    const backend = new DurableStateBackend({
++      path: process.env.TDAI_DURABLE_STATE_DB,
++      deploymentId: process.env.TDAI_DURABLE_DEPLOYMENT_ID ?? "",
++      onTimerExpired: config.local?.onTimerExpired,
++    });
++    await backend.initialize();
++    return backend;
++  }
++
+   // default: local
+   const backend = new LocalStateBackend(config.local);
+   await backend.initialize?.();
+--- a/MemoryCore/src/gateway/server.ts
++++ b/MemoryCore/src/gateway/server.ts
+@@ -2050,6 +2050,9 @@
+       lockRetryConcurrency: this.config.worker.lockRetryConcurrency,
+       maxParkedTasks: this.config.worker.maxParkedTasks,
+       // L1 完成后推进 L2 timer（快路径：L1完成 → delay秒后触发L2）
++      onDeadLetter: async (task, error, retryCount) => {
++        await (this.stateBackend as any).recordDeadLetter?.(task, error, retryCount);
++      },
+       onL1Complete: statefulManager.advanceL2TimerAfterL1.bind(statefulManager),
+       // L2 完成后设置 maxInterval 兜底 timer
+       onL2Complete: statefulManager.armL2MaxInterval.bind(statefulManager),
+--- a/MemoryCore/src/gateway/v2-router.ts
++++ b/MemoryCore/src/gateway/v2-router.ts
+@@ -2197,8 +2197,15 @@
+     );
+   }
+ 
++  await (deps.stateBackend as any).assertHealthy?.();
+   const queued = await deps.stateBackend.listQueuedTasks();
+   const running = deps.pipelineWorker.getRunningTasks();
++  // Recovered PEL work is unfinished even before the native stale-claim timer runs.
++  const pending = await (deps.stateBackend as any).listPendingTasks?.() ?? [];
++  const activeDeliveries = new Set(running.map(t => t._msgId).filter(Boolean));
++  for (const task of pending) {
++    if (!activeDeliveries.has(task._msgId)) running.push(task);
++  }
+ 
+   const layers: Record<"L1" | "L2" | "L3", LayerStatus> = {
+     L1: emptyLayer(),

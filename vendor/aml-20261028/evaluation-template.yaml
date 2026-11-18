@@ -1,0 +1,58 @@
+# TencentDB Agent Memory standalone profile for LDBD evaluation.
+# Secrets are injected through environment variables and must not be committed.
+deployMode: standalone
+stateBackend: "local"
+
+server:
+  port: 8420
+  host: "127.0.0.1"
+
+data:
+  baseDir: "~/.memory-tencentdb/ldbd-evaluation"
+
+llm:
+  baseUrl: "${TDAI_LLM_BASE_URL}"
+  apiKey: "${TDAI_LLM_API_KEY}"
+  model: "${TDAI_LLM_MODEL}"
+  maxTokens: 4096
+  timeoutMs: 900000
+
+memory:
+  capture:
+    enabled: true
+
+  extraction:
+    enabled: true
+    enableDedup: true
+    maxMemoriesPerSession: 20
+
+  persona:
+    triggerEveryN: 50
+    maxScenes: 15
+
+  pipeline:
+    everyNConversations: 5
+    enableWarmup: true
+    l1IdleTimeoutSeconds: 600
+    # The adapter waits for every queued L1/L2/L3 task before Search starts.
+    l2DelayAfterL1Seconds: 5
+    l2MinIntervalSeconds: 60
+    l2MaxIntervalSeconds: 300
+
+  recall:
+    enabled: true
+    maxResults: 100
+    scoreThreshold: 0.3
+    strategy: "hybrid"
+    timeoutMs: 900000
+
+  storeBackend: "sqlite"
+
+  # BM25 is always available. Configure a benchmark-approved OpenAI-compatible
+  # embedding provider here if the submitted system is meant to use hybrid search.
+  embedding:
+    provider: "none"
+
+  bm25:
+    enabled: true
+    language: "zh"

@@ -16,7 +16,7 @@
   <main class="shell">
     <section class="hero" aria-labelledby="hero-title">
       <div>
-        <p class="kicker">Read-only memory retrieval</p>
+        <p class="kicker">Local persistent memory and retrieval</p>
         <h1 id="hero-title">Two sources.<br>One evidence list.</h1>
         <p class="intro">Combine atomic memories and conversation history without losing where each result came from.</p>
         <a class="button" href="#try">Try it locally</a>
@@ -30,7 +30,7 @@
     </section>
     <section class="section" aria-labelledby="change-title">
       <p class="kicker">What’s different</p>
-      <h2 id="change-title">A retrieval layer, not a new memory engine.</h2>
+      <h2 id="change-title">Start a local store or connect your gateway.</h2>
       <dl class="features">
         <div><dt>Explicit scope</dt><dd>Both requests use the same team, user and agent identifiers. The client never writes to the upstream store.</dd></div>
         <div><dt>Traceable evidence</dt><dd>Duplicate text is merged, and the output keeps its best citation from each source.</dd></div>
@@ -39,13 +39,17 @@
     </section>
     <section class="section try" id="try" aria-labelledby="try-title">
       <div>
-        <p class="kicker">Offline demo</p>
+      <p class="kicker">Persistent local service</p>
         <h2 id="try-title">Run it with Python 3.10+</h2>
-        <p>The demo uses synthetic records only. No gateway, API key or external service is needed.</p>
+        <p>Start the server, then write and query your own memories in another terminal. The data stays on disk across restarts. No cloud credentials or external service are needed.</p>
       </div>
       <pre><code>git clone https://github.com/tjusimple/recallweft.git
 cd recallweft
-python recall.py --demo</code></pre>
+python serve.py start
+
+# In a second terminal, from the same directory:
+python serve.py remember "The release checklist requires a database snapshot."
+python serve.py search "database snapshot"</code></pre>
     </section>
   </main>
   <footer class="shell footer">
